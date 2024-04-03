@@ -2,7 +2,7 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/brasil/.rss
+    url: https://www.reddit.com/r/csi/.rss
     source: json
 
 jobs:
@@ -16,5 +16,4 @@ jobs:
           echo "Title: ${{on.rss.outputs.title}}"
           echo "Content Snippet: $contentSnippet"
           echo "Link: ${{on.rss.outputs.link}}"
-          echo "Content: ${{on.rss.outputs.content}}"
-          echo "Author: ${{on.rss.outputs.author}}"
+
