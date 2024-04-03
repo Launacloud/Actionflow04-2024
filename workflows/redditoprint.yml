@@ -2,7 +2,7 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/news/.rss
+    url: https://www.reddit.com/r/brasil/.rss
     source: json
 
 jobs:
