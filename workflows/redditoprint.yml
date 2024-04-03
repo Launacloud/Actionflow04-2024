@@ -2,8 +2,8 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/buldapc/.rss
-    source: json
+    url: https://www.reddit.com/r/buildapc/.rss
+    #source: json
 
 jobs:
   print_rss:
@@ -15,3 +15,5 @@ jobs:
           echo "Title: ${{on.rss.outputs.title}}"
           echo "Content Snippet: ${{on.rss.outputs.contentSnippet}}"
           echo "Link: ${{on.rss.outputs.link}}"
+          echo "Content: ${{on.rss.outputs.content}}"
+          echo "Author: ${{on.rss.outputs.author}}"
