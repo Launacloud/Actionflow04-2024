@@ -14,7 +14,7 @@ jobs:
           config_source: json
           config_url: https://www.reddit.com/r/FreeEBOOKS+freebooks
 
-  telegram:
+telegram:
     name: Send a telegram message
     runs-on: ubuntu-latest
     steps:
