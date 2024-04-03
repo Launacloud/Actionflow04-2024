@@ -1,7 +1,7 @@
 #sacocheio12312
 on:
   rss:
-    url: https://hnrss.org/newest?points=300
+    url: https://www.reddit.com/r/FreeEBOOKS/.rss
 jobs:
   print:
     name: Print
