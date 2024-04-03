@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Outputs
+      format: HTML
         env:
-          title: ${{on.rss.outputs.title}}
-          contentSnippet: ${{on.rss.outputs.contentSnippet}}
-          link: ${{on.rss.outputs.link}}
+          message: |
+          title: <b>${{ on.rss.outputs.title }}</b>
+          contentSnippet:  Via <a href="https://reddit.com/${{ on.rss.outputs.permalink }}">{{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}
+          link:  <a href="${{ on.rss.outputs.url_overridden_by_dest }}">Book Link</a>
         run: |
           echo title: $title
           echo contentSnippet: $contentSnippet
