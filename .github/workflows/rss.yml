@@ -1,16 +1,19 @@
 on:
-  rss:
-    url: https://www.reddit.com/r/FreeEBOOKS+freebooks
-    source: json
-    schedule:
+  schedule:
     - cron: "*/15 * * * *"
-    config:
-      limit: 15
+
 jobs:
   print:
     name: Print
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch RSS data
+        uses: actionsflow/actionsflow-action@v1.3.0
+        with:
+          config: rss
+          config_source: json
+          config_url: https://www.reddit.com/r/FreeEBOOKS+freebooks
+          config_limit: 15
       - name: Print Outputs
         env:
           title: ${{on.rss.outputs.title}}
