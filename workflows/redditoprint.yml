@@ -3,7 +3,6 @@ name: Print RSS
 on:
   rss:
     url: https://www.reddit.com/r/freebooks/.rss
-    source: json
 
 jobs:
   print_rss:
@@ -12,11 +11,10 @@ jobs:
     steps:
       - name: Print RSS
         run: |
-          echo "{{on.rss.outputs.contentSnippet}}"
+          echo "contentSnippet :${{on.rss.outputs.contentSnippet}}"
           echo "<a href=\"${{on.rss.outputs.link}}\">${{on.rss.outputs.title}}</a>"
           echo "by: ${{on.rss.outputs.author}}"
           echo "Title: ${{on.rss.outputs.title}}"
-          echo "Content Snippet: $contentSnippet"
           echo "<a href=\"${{on.rss.outputs.link}}\">${{on.rss.outputs.title}}</a>"
           echo "Content: ${{on.rss.outputs.content}}"
           echo "by: ${{on.rss.outputs.author}}"
