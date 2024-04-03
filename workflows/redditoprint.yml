@@ -10,21 +10,13 @@ jobs:
     name: Print RSS Data
     runs-on: ubuntu-latest
     steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install jq -y
+
       - name: Print RSS Data
         run: |
-          echo "Title: ${{ on.rss.steps.filter.outputs.title }}"
-          echo "Permalink: ${{ on.rss.steps.filter.outputs.permalink }}"
-          echo "Subreddit: ${{ on.rss.steps.filter.outputs.subreddit_name_prefixed }}"
-          echo "Author: ${{ on.rss.steps.filter.outputs.author }}"
-          echo "URL: ${{ on.rss.steps.filter.outputs.url_overridden_by_dest }}"
-      
-      - name: Filter RSS data
-        id: filter
-        run: |
-          echo "${{ toJson(on.rss.data) }}" > rss.json
-          data=$(jq -r '.data.children[0].data' rss.json)
-          echo "::set-output name=title::$(echo $data | jq -r '.title')"
-          echo "::set-output name=permalink::$(echo $data | jq -r '.permalink')"
-          echo "::set-output name=subreddit_name_prefixed::$(echo $data | jq -r '.subreddit_name_prefixed')"
-          echo "::set-output name=author::$(echo $data | jq -r '.author')"
-          echo "::set-output name=url_overridden_by_dest::$(echo $data | jq -r '.url_overridden_by_dest')"
+          echo "Title: ${{ toJson(on.rss.data.children[0].data.title) }}"
+          echo "Permalink: ${{ toJson(on.rss.data.children[0].data.permalink) }}"
+          echo "Subreddit: ${{ toJson(on.rss.data.children[0].data.subreddit_name_prefixed) }}"
+          echo "Author: ${{ toJson(on.rss.data.children[0].data.author) }}"
+          echo "URL: ${{ toJson(on.rss.data.children[0].data.url_overridden_by_dest) }}"
