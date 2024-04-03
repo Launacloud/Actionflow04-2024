@@ -1,8 +1,7 @@
 name: RSS to Print
 
 on:
-  schedule:
-    - cron: "*/15 * * * *" # Executa a cada 15 minutos
+  cron: "*/15 * * * *" # Executa a cada 15 minutos
 
 jobs:
   rss_to_print:
