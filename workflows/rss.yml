@@ -1,9 +1,12 @@
+name: RSS to Print
+
 on:
-  reddit:
-    url: https://www.reddit.com/r/buildapc/.rss
+  schedule:
+    - cron: "*/15 * * * *" # Executa a cada 15 minutos
+
 jobs:
-  print:
-    name: Print
+  rss_to_print:
+    name: RSS to Print
     runs-on: ubuntu-latest
     steps:
       - name: Fetch RSS data
@@ -11,13 +14,10 @@ jobs:
         with:
           config: rss
           config_source: json
-          config_url: 'https://hnrss.org/newest?points=300&count=3'
-      - name: Print Outputs
-        env:
-          title: ${{ steps.fetch.outputs.title }}
-          contentSnippet: ${{ steps.fetch.outputs.contentSnippet }}
-          link: ${{ steps.fetch.outputs.link }}
+          config_url: "https://www.reddit.com/r/buildapc"
+
+      - name: Print RSS Content
         run: |
-          echo title: $title
-          echo contentSnippet: $contentSnippet
-          echo link: $link
+          echo "Title: ${{on.rss.outputs.title}}"
+          echo "Content Snippet: ${{on.rss.outputs.contentSnippet}}"
+          echo "Link: ${{on.rss.outputs.link}}"
