@@ -1,6 +1,11 @@
 on:
   rss:
     url: https://www.reddit.com/r/FreeEBOOKS+freebooks
+    source: json
+    schedule:
+    - cron: "*/15 * * * *"
+    config:
+      limit: 15
 jobs:
   print:
     name: Print
