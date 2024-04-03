@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Print RSS Data
         run: |
-          echo "Title: ${{ steps.filter.outputs.title }}"
-          echo "Permalink: ${{ steps.filter.outputs.permalink }}"
-          echo "Subreddit: ${{ steps.filter.outputs.subreddit_name_prefixed }}"
-          echo "Author: ${{ steps.filter.outputs.author }}"
-          echo "URL: ${{ steps.filter.outputs.url_overridden_by_dest }}"
+          echo "Title: ${{ on.rss.steps.filter.outputs.title }}"
+          echo "Permalink: ${{ on.rss.steps.filter.outputs.permalink }}"
+          echo "Subreddit: ${{ on.rss.steps.filter.outputs.subreddit_name_prefixed }}"
+          echo "Author: ${{ on.rss.steps.filter.outputs.author }}"
+          echo "URL: ${{ on.rss.steps.filter.outputs.url_overridden_by_dest }}"
       
       - name: Filter RSS data
         id: filter
