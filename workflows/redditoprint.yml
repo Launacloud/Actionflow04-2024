@@ -1,6 +1,6 @@
 name: Reddit to Print
 on:
-  reddit:
+  rss:
     url: https://www.reddit.com/r/buildapc/.rss
     source: json
   
