@@ -7,7 +7,14 @@ jobs:
   print:
     name: Print
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 14.14.0
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
       - name: Fetch RSS data
         uses: actionsflow/actionsflow-action@v1.3.0
         with:
@@ -28,7 +35,14 @@ jobs:
   telegram:
     name: Send a telegram message
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 14.14.0
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: Send a telegram message
         uses: appleboy/telegram-action@master
         with:
