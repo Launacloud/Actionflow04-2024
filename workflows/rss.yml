@@ -1,6 +1,7 @@
 on:
   rss:
-    url: https://www.reddit.com/r/FreeEBOOKS+freebooks/.rss
+    url: https://www.reddit.com/r/freebooks/.rss
+    url: https://www.reddit.com/r/FreeEBOOKS/.rss
 jobs:
   print:
     name: Print
