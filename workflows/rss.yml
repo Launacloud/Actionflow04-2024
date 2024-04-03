@@ -1,12 +1,22 @@
 name: RSS to Print
-
 on:
-  rss
-          config_source: json
-          config_url: "https://www.reddit.com/r/buildapc"
-
-      - name: Print RSS Content
+  rss:
+    url: https://www.reddit.com/r/FreeEBOOKS+freebooks
+    source: json
+    schedule:
+    - cron: "*/15 * * * *"
+    
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.rss.outputs.title}}
+          contentSnippet: ${{on.rss.outputs.contentSnippet}}
+          link: ${{on.rss.outputs.link}}
         run: |
-          echo "Title: ${{on.rss.outputs.title}}"
-          echo "Content Snippet: ${{on.rss.outputs.contentSnippet}}"
-          echo "Link: ${{on.rss.outputs.link}}"
+          echo title: $title
+          echo contentSnippet: $contentSnippet
+          echo link: $link
