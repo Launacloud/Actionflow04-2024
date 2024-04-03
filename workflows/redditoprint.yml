@@ -12,7 +12,9 @@ jobs:
     steps:
       - name: Print RSS
         run: |
+          contentSnippet=$(echo "${{on.rss.outputs.contentSnippet}}" | sed 's/<br\/>//g')
           echo "Title: ${{on.rss.outputs.title}}"
-          echo "Link: ${{on.rss.outputs.link}}"
           echo "Content Snippet: $contentSnippet"
-
+          echo "Link: <a href=\"${{on.rss.outputs.link}}\">${{on.rss.outputs.title}}</a>"
+          echo "Content: ${{on.rss.outputs.content}}"
+          echo "by: ${{on.rss.outputs.author}}"
