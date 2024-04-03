@@ -20,13 +20,14 @@ on:
         description: "--verbose: debug workflow, true or false"
         required: false
         default: "false"
+        actions/checkout@v3, actionsflow/actionsflow-action@v1.3.0.
 jobs:
   run:
     runs-on: ubuntu-latest
     name: Run
     concurrency: actionsflow
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Actionsflow
         uses: actionsflow/actionsflow-action@v1.3.0
         with:
