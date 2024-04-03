@@ -2,7 +2,7 @@ name: RSS to Print
 
 on:
   rss:
-    url: https://www.reddit.com/r/buildapc/.rss
+    url: https://www.reddit.com/r/freebooks/.rss
     source: json
 
 jobs:
@@ -14,6 +14,7 @@ jobs:
         run: |
           echo "Title: ${{ on.rss.outputs.title }}"
           echo "Subreddit: ${{ on.rss.outputs.subreddit }}"
+          echo "Content: ${{ on.rss.outputs.content }}"
           echo "Selftext: ${{ on.rss.outputs.selftext }}"
           echo "Author Fullname: ${{ on.rss.outputs.author_fullname }}"
           echo "Subreddit Name Prefixed: ${{ on.rss.outputs.subreddit_name_prefixed }}"
