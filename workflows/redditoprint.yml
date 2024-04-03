@@ -14,5 +14,5 @@ jobs:
         run: |
           echo "Title: ${{on.rss.outputs.title}}"
           echo "Link: ${{on.rss.outputs.link}}"
-          echo "Content: ${{on.rss.outputs.content}}"
+          echo "Content Snippet: $contentSnippet"
 
