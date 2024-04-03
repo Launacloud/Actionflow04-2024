@@ -2,7 +2,7 @@ name: rss to telegram
 
 on:
   rss:
-    url: https://www.reddit.com/r/FreeEBOOKS+freebooks/.rss
+    url: https://www.reddit.com/r/FreeEBOOKS/.rss
     source: json
   
 jobs:
