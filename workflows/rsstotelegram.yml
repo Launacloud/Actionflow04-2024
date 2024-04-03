@@ -20,4 +20,4 @@ jobs:
           message: |
             <b>${{ on.rss.outputs.title }}</b>
             Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}
-            <a href="${{ on.rss.outputs.link }}">Book Link</a>
+            <a href="${{ on.rss.outputs.contentSnippet} }}">Book Link</a>
