@@ -13,13 +13,20 @@ jobs:
           config: rss
           config_source: json
           config_url: https://www.reddit.com/r/FreeEBOOKS+freebooks
-          config_limit: 15
-      - name: Print Outputs
-        env:
-          title: ${{on.rss.outputs.title}}
-          contentSnippet: ${{on.rss.outputs.contentSnippet}}
-          link: ${{on.rss.outputs.link}}
-        run: |
-          echo title: $title
-          echo contentSnippet: $contentSnippet
-          echo link: $link
+          
+ jobs:
+  telegram:
+    name: Send a telegram message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send a telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          disable_web_page_preview: false
+          message:  |
+            <b>${{on.reddit.outputs.title}}</b>
+            Via <a href="https://reddit.com/${{on.reddit.outputs.permalink}}">${{on.reddit.outputs.subreddit_name_prefixed }}</a> By ${{on.reddit.outputs.author }}
+            <a href="${{on.reddit.outputs.url_overridden_by_dest}}">Book Link</a>
