@@ -1,7 +1,6 @@
-on:
+'on':
   schedule:
-    - cron: "*/15 * * * *"
-
+    - cron: '*/15 * * * *'
 jobs:
   print:
     name: Print
@@ -12,21 +11,23 @@ jobs:
         with:
           config: rss
           config_source: json
-          config_url: https://www.reddit.com/r/FreeEBOOKS+freebooks
-          
- jobs:
-  telegram:
-    name: Send a telegram message
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send a telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: HTML
-          disable_web_page_preview: false
-          message:  |
-            <b>${{on.reddit.outputs.title}}</b>
-            Via <a href="https://reddit.com/${{on.reddit.outputs.permalink}}">${{on.reddit.outputs.subreddit_name_prefixed }}</a> By ${{on.reddit.outputs.author }}
-            <a href="${{on.reddit.outputs.url_overridden_by_dest}}">Book Link</a>
+          config_url: 'https://www.reddit.com/r/FreeEBOOKS+freebooks'
+telegram:
+  name: Send a telegram message
+  runs-on: ubuntu-latest
+  steps:
+    - name: Send a telegram message
+      uses: appleboy/telegram-action@master
+      with:
+        to: '${{ secrets.TELEGRAM_TO }}'
+        token: '${{ secrets.TELEGRAM_TOKEN }}'
+        format: HTML
+        disable_web_page_preview: false
+        message: >
+          <b>${{on.reddit.outputs.title}}</b>
+
+          Via <a
+          href="https://reddit.com/${{on.reddit.outputs.permalink}}">${{on.reddit.outputs.subreddit_name_prefixed
+          }}</a> By ${{on.reddit.outputs.author }}
+
+          <a href="${{on.reddit.outputs.url_overridden_by_dest}}">Book Link</a>
