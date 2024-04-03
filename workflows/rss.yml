@@ -1,6 +1,6 @@
 on:
   reddit:
-    url: https://www.reddit.com/r/FreeEBOOKS/.rss
+    url: https://www.reddit.com/r/buildapc/.rss
 jobs:
   print:
     name: Print
@@ -11,8 +11,7 @@ jobs:
         with:
           config: rss
           config_source: json
-          config_url: 'reddit.com/r/buildapc/.rss'
-
+          config_url: 'https://hnrss.org/newest?points=300&count=3'
       - name: Print Outputs
         env:
           title: ${{ steps.fetch.outputs.title }}
