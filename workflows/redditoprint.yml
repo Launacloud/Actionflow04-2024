@@ -1,22 +1,23 @@
-name: rss to print
+name: RSS to Print
 
 on:
   rss:
     url: https://www.reddit.com/r/buildapc/.rss
     source: json
-  
+
 jobs:
-  print:
-    name: Print RSS Data
+  print_items:
+    name: Print RSS Items
     runs-on: ubuntu-latest
     steps:
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install jq -y
-
-      - name: Print RSS Data
+      - name: Print RSS Item Details
         run: |
-          echo "Title: ${{ toJson(on.rss.data.children[0].data.title) }}"
-          echo "Permalink: ${{ toJson(on.rss.data.children[0].data.permalink) }}"
-          echo "Subreddit: ${{ toJson(on.rss.data.children[0].data.subreddit_name_prefixed) }}"
-          echo "Author: ${{ toJson(on.rss.data.children[0].data.author) }}"
-          echo "URL: ${{ toJson(on.rss.data.children[0].data.url_overridden_by_dest) }}"
+          echo "Title: ${{ on.rss.outputs.title }}"
+          echo "Subreddit: ${{ on.rss.outputs.subreddit }}"
+          echo "Selftext: ${{ on.rss.outputs.selftext }}"
+          echo "Author Fullname: ${{ on.rss.outputs.author_fullname }}"
+          echo "Subreddit Name Prefixed: ${{ on.rss.outputs.subreddit_name_prefixed }}"
+          echo "Post Hint: ${{ on.rss.outputs.post_hint }}"
+          echo "Domain: ${{ on.rss.outputs.domain }}"
+          echo "Permalink: ${{ on.rss.outputs.permalink }}"
+          echo "URL: ${{ on.rss.outputs.url }}"
