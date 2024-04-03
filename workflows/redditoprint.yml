@@ -2,7 +2,7 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/InternetIsBeautiful/.rss
+    url: https://www.reddit.com/r/freebooks/.rss
     source: json
 
 jobs:
