@@ -2,7 +2,7 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/buildapc/.rss
+    url: https://www.reddit.com/r/news/.rss
     source: json
 
 jobs:
