@@ -1,7 +1,7 @@
 name: RSS to Print
 on:
   rss:
-    url: https://www.reddit.com/r/FreeEBOOKS+freebooks
+    url: https://www.reddit.com/r/FreeEBOOKS+freebooks/.rss
     source: json
     schedule:
     - cron: "*/15 * * * *"
