@@ -1,18 +1,42 @@
-#sacocheio12312
 on:
   rss:
-    url: https://www.reddit.com/r/FreeEBOOKS/.rss
+    - url: https://www.reddit.com/r/FreeEBOOKS/.rss
+    - url: https://www.reddit.com/r/freebooks/.rss
+
 jobs:
   print:
     name: Print
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch RSS data
+        uses: actionsflow/actionsflow-action@v1.3.0
+        with:
+          config: rss
+          config_source: json
+          config_url: ${{ github.event.inputs.rss_url }}
+
       - name: Print Outputs
         env:
-          title: ${{on.rss.outputs.title}}
-          contentSnippet: ${{on.rss.outputs.contentSnippet}}
-          link: ${{on.rss.outputs.link}}
+          title: ${{ steps.fetch.outputs.title }}
+          contentSnippet: ${{ steps.fetch.outputs.contentSnippet }}
+          link: ${{ steps.fetch.outputs.link }}
         run: |
           echo title: $title
           echo contentSnippet: $contentSnippet
           echo link: $link
+
+  telegram:
+    name: Send a telegram message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send a telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          disable_web_page_preview: false
+          message: |
+            <b>${{ steps.fetch.outputs.title }}</b>
+            Via <a href="https://reddit.com/${{ steps.fetch.outputs.permalink }}">{{{ steps.fetch.outputs.subreddit_name_prefixed }}</a> By ${{ steps.fetch.outputs.author }}
+            <a href="${{ steps.fetch.outputs.url_overridden_by_dest }}">Book Link</a>
