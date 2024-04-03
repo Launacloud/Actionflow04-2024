@@ -1,7 +1,6 @@
 on:
   rss:
-    - url: https://www.reddit.com/r/FreeEBOOKS+freebooks/.rss
-
+    url: https://www.reddit.com/r/FreeEBOOKS+freebooks/.rss
 jobs:
   print:
     name: Print
@@ -12,7 +11,7 @@ jobs:
         with:
           config: rss
           config_source: json
-          config_url: ${{ github.event.inputs.rss_url }}
+          config_url: 'https://hnrss.org/newest?points=300&count=3'
 
       - name: Print Outputs
         env:
@@ -23,19 +22,3 @@ jobs:
           echo title: $title
           echo contentSnippet: $contentSnippet
           echo link: $link
-
-  telegram:
-    name: Send a telegram message
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send a telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: HTML
-          disable_web_page_preview: false
-          message: |
-            <b>${{ steps.fetch.outputs.title }}</b>
-            Via <a href="https://reddit.com/${{ steps.fetch.outputs.permalink }}">{{{ steps.fetch.outputs.subreddit_name_prefixed }}</a> By ${{ steps.fetch.outputs.author }}
-            <a href="${{ steps.fetch.outputs.url_overridden_by_dest }}">Book Link</a>
