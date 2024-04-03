@@ -19,5 +19,5 @@ jobs:
           disable_web_page_preview: true
           message: |
             <b>${{ on.rss.outputs.title }}</b>
-            <p>Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}</p>
+            Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}
             <a href="${{ on.rss.outputs.link }}">Book Link</a>
