@@ -8,6 +8,7 @@ jobs:
   print_rss:
     name: Print RSS Data
     runs-on: ubuntu-latest
+    cache: 'npm' 
     steps:
       - name: Print RSS
         run: |
