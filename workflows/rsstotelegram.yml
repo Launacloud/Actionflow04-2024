@@ -16,8 +16,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: HTML
-          disable_web_page_preview: false
+          disable_web_page_preview: true
           message: |
             <b>${{ on.rss.outputs.title }}</b>
-            Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}<br>
+            <p>Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}</p>
             <a href="${{ on.rss.outputs.link }}">Book Link</a>
