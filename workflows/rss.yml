@@ -11,7 +11,7 @@ jobs:
         with:
           config: rss
           config_source: json
-          config_url: 'https://hnrss.org/newest?points=300&count=3'
+          config_url: 'reddit.com/r/buildapc/.rss'
 
       - name: Print Outputs
         env:
