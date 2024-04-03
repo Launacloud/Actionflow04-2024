@@ -1,5 +1,5 @@
 on:
-  rss:
+  reddit:
     url: https://www.reddit.com/r/FreeEBOOKS/.rss
 jobs:
   print:
