@@ -13,7 +13,6 @@ jobs:
           config: rss
           config_source: json
           config_url: https://www.reddit.com/r/FreeEBOOKS+freebooks
-          
  jobs:
   telegram:
     name: Send a telegram message
