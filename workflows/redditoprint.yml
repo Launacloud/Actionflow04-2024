@@ -2,7 +2,7 @@ name: Print RSS
 
 on:
   rss:
-    url: https://www.reddit.com/r/eFreebies/.rss
+    url: https://www.reddit.com/r/InternetIsBeautiful/.rss
     source: json
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Print RSS
         run: |
-          contentSnippet=$(echo "${{on.rss.outputs.contentSnippet}}" | sed 's/<br\/>/\n/g')
+          contentSnippet=$(echo "${{on.rss.outputs.contentSnippet}}" | sed 's/<br\/>//g'
           echo "Title: ${{on.rss.outputs.title}}"
           echo "Content Snippet: $contentSnippet"
           echo "Link: ${{on.rss.outputs.link}}"
