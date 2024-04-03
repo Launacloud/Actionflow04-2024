@@ -12,9 +12,8 @@ jobs:
     steps:
       - name: Print RSS
         run: |
-          contentSnippet=$(echo "${{on.rss.outputs.contentSnippet}}"
           echo "Title: ${{on.rss.outputs.title}}"
-          echo "Content Snippet: $contentSnippet"
+          echo "Content Snippet: ${{on.rss.outputs.contentSnippet}}"
           echo "Link: ${{on.rss.outputs.link}}"
           echo "Content: ${{on.rss.outputs.content}}"
           echo "Author: ${{on.rss.outputs.author}}"
