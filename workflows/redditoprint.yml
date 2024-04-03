@@ -1,4 +1,4 @@
-name: Reddit to Print
+name: rss to print
 
 on:
   rss:
@@ -7,16 +7,24 @@ on:
   
 jobs:
   print:
-    name: Print
+    name: Print RSS Data
     runs-on: ubuntu-latest
     steps:
-      - name: Print Outputs
-        env:
-          title: ${{ on.rss.outputs.title }}
-          contentSnippet: |
-            Via <a href="https://reddit.com/${{ on.rss.outputs.permalink }}">{{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}
-          link: <a href="${{ on.rss.outputs.url_overridden_by_dest }}">Book Link</a>
+      - name: Print RSS Data
         run: |
-          echo title: $title
-          echo contentSnippet: $contentSnippet
-          echo link: $link
+          echo "Title: ${{ steps.filter.outputs.title }}"
+          echo "Permalink: ${{ steps.filter.outputs.permalink }}"
+          echo "Subreddit: ${{ steps.filter.outputs.subreddit_name_prefixed }}"
+          echo "Author: ${{ steps.filter.outputs.author }}"
+          echo "URL: ${{ steps.filter.outputs.url_overridden_by_dest }}"
+      
+      - name: Filter RSS data
+        id: filter
+        run: |
+          echo "${{ toJson(on.rss.data) }}" > rss.json
+          data=$(jq -r '.data.children[0].data' rss.json)
+          echo "::set-output name=title::$(echo $data | jq -r '.title')"
+          echo "::set-output name=permalink::$(echo $data | jq -r '.permalink')"
+          echo "::set-output name=subreddit_name_prefixed::$(echo $data | jq -r '.subreddit_name_prefixed')"
+          echo "::set-output name=author::$(echo $data | jq -r '.author')"
+          echo "::set-output name=url_overridden_by_dest::$(echo $data | jq -r '.url_overridden_by_dest')"
