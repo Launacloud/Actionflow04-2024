@@ -18,6 +18,6 @@ jobs:
           format: HTML
           disable_web_page_preview: false
           message: |
-            <b>${{ on.rss.outputs.title }}</b><br>
+            <b>${{ on.rss.outputs.title }}</b>
             Via <a href="https://reddit.com${{ on.rss.outputs.permalink }}">{{ on.rss.outputs.subreddit_name_prefixed }}</a> By ${{ on.rss.outputs.author }}<br>
             <a href="${{ on.rss.outputs.link }}">Book Link</a>
