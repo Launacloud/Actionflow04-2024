@@ -1,17 +1,7 @@
 name: RSS to Print
 
 on:
-  cron: "*/15 * * * *" # Executa a cada 15 minutos
-
-jobs:
-  rss_to_print:
-    name: RSS to Print
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch RSS data
-        uses: actionsflow/actionsflow-action@v1.3.0
-        with:
-          config: rss
+  rss
           config_source: json
           config_url: "https://www.reddit.com/r/buildapc"
 
