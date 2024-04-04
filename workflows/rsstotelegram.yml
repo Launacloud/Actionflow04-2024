@@ -16,7 +16,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: HTML
-          disable_web_page_preview: flase
+          disable_web_page_preview: false
           message: |
             <a href="${{on.rss.outputs.link}}"><b>${{ on.rss.outputs.title }}</b></a>
             By ${{ on.rss.outputs.author }}
