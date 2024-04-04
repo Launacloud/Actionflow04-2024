@@ -14,9 +14,6 @@ jobs:
         run: |
           echo "contentSnippet :${{on.rss.outputs.contentSnippet}}"
           echo "<a href=\"${{on.rss.outputs.link}}\">${{on.rss.outputs.title}}</a>"
-          echo "by: ${{on.rss.outputs.author}}"
-          echo "Title: ${{on.rss.outputs.title}}"
-          echo "<a href=\"${{on.rss.outputs.link}}\">${{on.rss.outputs.title}}</a>"
           echo "Content: ${{on.rss.outputs.content}}"
           echo "by: ${{on.rss.outputs.author}}"
 #| sed 's/<br\/>//g')
