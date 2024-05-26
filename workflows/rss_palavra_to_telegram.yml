@@ -1,4 +1,4 @@
-name: RSS Palavra to Telegram
+name: RSS to Telegram
 
 on:
   schedule:
