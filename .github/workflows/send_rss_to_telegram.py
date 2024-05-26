@@ -1,36 +1,57 @@
-import requests
-import os
-import feedparser
-from datetime import datetime
+name: RSS to Telegram
 
-# Telegram API credentials
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKENRSS')
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+  workflow_dispatch:
+  push:  # This triggers the workflow on push events
 
-def fetch_rss_feed(url):
-    return feedparser.parse(url)
+jobs:
+  send_rss_to_telegram:
+    runs-on: ubuntu-latest
 
-def send_to_telegram(chat_id, message):
-    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKENRSS}/sendMessage'
-    payload = {'chat_id': chat_id, 'text': message, 'parse_mode': 'HTML'}
-    requests.post(url, data=payload)
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-def main():
-    rss_chat_map = dict(item.split(":") for item in os.getenv('RSS_FEEDS_CHAT_IDS').split(','))
-    
-    for feed_url, chat_id in rss_chat_map.items():
-        feed = fetch_rss_feed(feed_url.strip())
-        
-        for entry in feed.entries:
-            title = entry.title
-            link = entry.link
-            published = entry.get('published', 'No publication date')
-            description = entry.get('description', 'No description')
-            # Format the message with HTML
-            message = (f"<b>Title:</b> {title}\n"
-                       f"<b>Link:</b> <a href='{link}'>{link}</a>\n"
-                       f"<b>Published:</b> {published}\n"
-                       f"<b>Description:</b> {description}")
-            send_to_telegram(chat_id.strip(), message)
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Updated to v4 for latest compatibility
+      with:
+        python-version: '3.x'
 
-if __name__ == '__main__':
-    main()
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install feedparser requests
+
+    - name: Run script
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        RSS_FEEDS_CHAT_IDS: ${{ secrets.RSS_FEEDS_CHAT_IDS }}  # Ensure this secret contains a JSON string
+      run: python send_rss_to_telegram.py
+
+  build_actionsflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Actionsflow
+        run: npx actionsflow build --include -f false --verbose false --json-secrets '${{ secrets.YOUR_SECRETS_HERE }}' --json-github '${{ toJson(github) }}'
