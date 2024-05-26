@@ -4,13 +4,13 @@ import feedparser
 from datetime import datetime
 
 # Telegram API credentials
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKENRSS')
 
 def fetch_rss_feed(url):
     return feedparser.parse(url)
 
 def send_to_telegram(chat_id, message):
-    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
+    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKENRSS}/sendMessage'
     payload = {'chat_id': chat_id, 'text': message, 'parse_mode': 'HTML'}
     requests.post(url, data=payload)
 
