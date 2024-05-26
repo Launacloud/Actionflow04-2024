@@ -23,6 +23,6 @@ jobs:
 
     - name: Run script
       env:
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKENRSS }}
         RSS_FEEDS_CHAT_IDS: ${{ secrets.RSS_FEEDS_CHAT_IDS }}  # Map of RSS feed URLs to chat IDs
       run: python send_rss_to_telegram.py
