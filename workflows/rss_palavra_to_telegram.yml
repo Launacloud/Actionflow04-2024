@@ -1,0 +1,32 @@
+name: RSS Palavra to Telegram
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+  workflow_dispatch:
+  push:  # This triggers the workflow on push events
+
+jobs:
+  send_rss_to_telegram:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Run script
+      env:
+        TELEGRAM_BOT_TOKEN_PALAVRADODIA: ${{ secrets.TELEGRAM_BOT_TOKEN_PALAVRADODIA }}
+        RSS_FEED_URLPALAVRADODIA: ${{ secrets.RSS_FEED_URLPALAVRADODIA }}
+        TELEGRAM_CHAT_IDPALAVRADODIA: ${{ secrets.TELEGRAM_CHAT_IDPALAVRADODIA }}
+      run: python rss_to_telegram_palavra.py
