@@ -1,41 +1,29 @@
 import os
 import requests
-import json
 import xml.etree.ElementTree as ET
 
-# Get environment variables
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN_PALAVRADODIA')
 RSS_FEED_URL = os.getenv('RSS_FEED_URLPALAVRADODIA')
 CHAT_ID = os.getenv('TELEGRAM_CHAT_IDPALAVRADODIA')
 
+# Function to send message to Telegram
 def send_message(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
     data = {'chat_id': CHAT_ID, 'text': message}
     response = requests.post(url, data=data)
     return response.json()
 
-def fetch_and_send_rss():
+# Function to fetch RSS feed and print items to log
+def fetch_rss_and_print():
     response = requests.get(RSS_FEED_URL)
-    if response.status_code == 200:
-        content_type = response.headers['content-type']
-        if 'application/json' in content_type:
-            data = response.json()
-            for item in data:
-                title = item.get('title')
-                link = item.get('link')
-                message = f"{title}\n{link}"
-                send_message(message)
-        elif 'application/xml' in content_type:
-            root = ET.fromstring(response.content)
-            for item in root.findall('.//item'):
-                title = item.find('title').text
-                link = item.find('link').text
-                message = f"{title}\n{link}"
-                send_message(message)
-        else:
-            send_message("Unsupported content type.")
-    else:
-        send_message("Failed to fetch RSS feed.")
+    root = ET.fromstring(response.content)
+    items = root.findall('.//item')
+    for item in items:
+        title = item.find('title').text
+        link = item.find('link').text
+        print(f'Title: {title}, Link: {link}')
+        # You can also send each item as a message to Telegram if needed
+        # send_message(f'Title: {title}, Link: {link}')
 
 # Main function to run the script
 def main():
