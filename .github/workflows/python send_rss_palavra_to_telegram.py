@@ -37,5 +37,9 @@ def fetch_and_send_rss():
     else:
         send_message("Failed to fetch RSS feed.")
 
+# Main function to run the script
+def main():
+    fetch_rss_and_print()
+
 if __name__ == "__main__":
-    fetch_and_send_rss()
+    main()
